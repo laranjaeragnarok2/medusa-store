@@ -2,16 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import { Users } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { VideoBackground } from '@/components/video-background';
 import { WaitlistForm } from '@/components/waitlist-form';
 
 interface LandingPageProps {
   initialCount: number;
-  initialTagline: string;
 }
 
-export function LandingPage({ initialCount, initialTagline }: LandingPageProps) {
+export function LandingPage({ initialCount }: LandingPageProps) {
   const [userCount, setUserCount] = useState(initialCount);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -33,10 +32,9 @@ export function LandingPage({ initialCount, initialTagline }: LandingPageProps) 
       <VideoBackground />
       <div className="flex min-h-screen w-full flex-col items-center justify-center p-4">
         <div className="animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}>
-          <Card className="w-full max-w-md border-border/50 bg-card/80 shadow-2xl shadow-primary/10 backdrop-blur-lg">
-            <CardHeader className="text-center">
+          <Card className="w-full max-w-md border-border/50 bg-card/60 shadow-2xl shadow-primary/10 backdrop-blur-lg">
+            <CardHeader className="text-center pb-4">
               <CardTitle className="font-headline text-4xl tracking-tighter sm:text-5xl">EsperaPremiada</CardTitle>
-              <CardDescription className="pt-2 text-base text-muted-foreground">{initialTagline}</CardDescription>
             </CardHeader>
             <CardContent>
               <WaitlistForm onSuccess={(newUserCount) => setUserCount(newUserCount)} />
