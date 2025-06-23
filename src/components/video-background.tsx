@@ -1,10 +1,16 @@
 'use client';
 
 export function VideoBackground() {
-  // ATENÇÃO: Para que o vídeo do Vimeo funcione como fundo, o ideal é usar
-  // um link direto para o arquivo .mp4, que geralmente está disponível
-  // nas configurações de distribuição de contas pagas do Vimeo (Pro, etc.).
-  const videoUrl = "https://vimeo.com/1095753167/023b1b0cd1";
+  // ATENÇÃO: Links do Vimeo como o que você forneceu não funcionam diretamente
+  // aqui porque são para a página do player, não para o arquivo de vídeo.
+  //
+  // Para funcionar, você precisa de um "Link direto" para o arquivo .mp4.
+  // No Vimeo, com uma conta paga, você encontra essa opção nas configurações de
+  // distribuição do seu vídeo.
+  //
+  // Voltei para um vídeo temporário que funciona. Quando tiver o link .mp4,
+  // é só colar no lugar do videoUrl abaixo.
+  const videoUrl = "https://videos.pexels.com/video-files/4434242/4434242-hd_1920_1080_30fps.mp4";
 
   return (
     <div className="fixed inset-0 -z-10 h-full w-full overflow-hidden">
