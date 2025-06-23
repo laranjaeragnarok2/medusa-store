@@ -65,6 +65,11 @@ export default {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
+        instagram: {
+          '1': 'hsl(var(--instagram-1))',
+          '2': 'hsl(var(--instagram-2))',
+          '3': 'hsl(var(--instagram-3))',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',

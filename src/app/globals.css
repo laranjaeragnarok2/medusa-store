@@ -37,6 +37,9 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    --instagram-1: 268 75% 50%;
+    --instagram-2: 340 82% 52%;
+    --instagram-3: 36 98% 54%;
   }
   .dark {
     --background: 220 9% 12%;
