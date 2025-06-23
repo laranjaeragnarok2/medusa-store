@@ -1,10 +1,10 @@
 'use client';
 
 export function VideoBackground() {
-  // O link do Google Drive pode ser instável. É melhor hospedar seu vídeo em um
-  // serviço como Vimeo (Pro), Mux, ou Cloudinary e usar o link direto do MP4.
-  // Eu adicionei um vídeo placeholder que funciona para você ver o efeito.
-  const videoUrl = "https://assets.mixkit.co/videos/preview/mixkit-futuristic-scrolling-data-codes-34228-large.mp4";
+  // ATENÇÃO: Para que o vídeo do Vimeo funcione como fundo, o ideal é usar
+  // um link direto para o arquivo .mp4, que geralmente está disponível
+  // nas configurações de distribuição de contas pagas do Vimeo (Pro, etc.).
+  const videoUrl = "https://vimeo.com/1095753167/023b1b0cd1";
 
   return (
     <div className="fixed inset-0 -z-10 h-full w-full overflow-hidden">
