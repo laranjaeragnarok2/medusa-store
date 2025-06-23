@@ -11,7 +11,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Alegreya', 'serif'],
-        headline: ['Alegreya', 'serif'],
+        headline: ['"Chakra Petch"', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {

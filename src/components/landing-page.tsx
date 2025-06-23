@@ -5,7 +5,6 @@ import { Users } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { VideoBackground } from '@/components/video-background';
 import { WaitlistForm } from '@/components/waitlist-form';
-import { TaglineGenerator } from '@/components/tagline-generator';
 
 interface LandingPageProps {
   initialCount: number;
@@ -14,7 +13,6 @@ interface LandingPageProps {
 
 export function LandingPage({ initialCount, initialTagline }: LandingPageProps) {
   const [userCount, setUserCount] = useState(initialCount);
-  const [tagline, setTagline] = useState(initialTagline);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -38,7 +36,7 @@ export function LandingPage({ initialCount, initialTagline }: LandingPageProps) 
           <Card className="w-full max-w-md border-border/50 bg-card/80 shadow-2xl shadow-primary/10 backdrop-blur-lg">
             <CardHeader className="text-center">
               <CardTitle className="font-headline text-4xl tracking-tighter sm:text-5xl">EsperaPremiada</CardTitle>
-              <CardDescription className="pt-2 text-base text-muted-foreground">{tagline}</CardDescription>
+              <CardDescription className="pt-2 text-base text-muted-foreground">{initialTagline}</CardDescription>
             </CardHeader>
             <CardContent>
               <WaitlistForm onSuccess={(newUserCount) => setUserCount(newUserCount)} />
@@ -48,7 +46,6 @@ export function LandingPage({ initialCount, initialTagline }: LandingPageProps) 
                 <Users className="mr-2 h-4 w-4" />
                 <span>Junte-se a <span className="font-bold text-accent-foreground">{userCount}</span> pessoas na espera!</span>
               </div>
-              <TaglineGenerator onGenerated={(newTagline) => setTagline(newTagline)} />
             </CardFooter>
           </Card>
         </div>
