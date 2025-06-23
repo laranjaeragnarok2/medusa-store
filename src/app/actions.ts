@@ -1,6 +1,7 @@
 'use server';
 
 import { z } from 'zod';
+import { suggestTagline } from '@/ai/flows/suggest-tagline';
 
 // In-memory store for demonstration. In a real app, use a database like Firestore.
 let userCount = 137;
@@ -30,3 +31,13 @@ export async function addToWaitlistAction(data: z.infer<typeof waitlistSchema>) 
         message: 'Obrigado! Você está na lista de espera.'
     };
 }
+
+export async function generateTaglineAction(productName: string, productDescription: string) {
+    try {
+      const result = await suggestTagline({ productName, productDescription });
+      return { tagline: result.tagline };
+    } catch (e) {
+      console.error(e);
+      return { error: 'Não foi possível gerar a tagline.' };
+    }
+  }

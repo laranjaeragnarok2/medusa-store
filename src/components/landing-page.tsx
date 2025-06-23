@@ -6,6 +6,7 @@ import { Users } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { VideoBackground } from '@/components/video-background';
 import { WaitlistForm } from '@/components/waitlist-form';
+import { TaglineGenerator } from '@/components/tagline-generator';
 
 interface LandingPageProps {
   initialCount: number;
@@ -14,6 +15,7 @@ interface LandingPageProps {
 export function LandingPage({ initialCount }: LandingPageProps) {
   const [userCount, setUserCount] = useState(initialCount);
   const [isMounted, setIsMounted] = useState(false);
+  const [tagline, setTagline] = useState("Receba ofertas especiais como até 50% de desconto");
 
   useEffect(() => {
     setIsMounted(true);
@@ -33,7 +35,7 @@ export function LandingPage({ initialCount }: LandingPageProps) {
       <VideoBackground />
       <div className="flex min-h-screen w-full flex-col items-center justify-center p-4">
         <div className="animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}>
-          <Card className="w-full max-w-md border-border/50 bg-card/20 shadow-2xl shadow-primary/10">
+          <Card className="w-full max-w-md border-border/50 bg-card/20 shadow-2xl shadow-primary/10 backdrop-blur-sm">
             <CardHeader className="text-center">
               <Image
                 src="https://iili.io/FT3tjGp.png"
@@ -47,7 +49,7 @@ export function LandingPage({ initialCount }: LandingPageProps) {
                 Entre na nossa lista exclusiva
               </CardTitle>
               <CardDescription className="text-base text-muted-foreground">
-                Receba ofertas especiais como até 50% de desconto
+                {tagline}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -58,6 +60,7 @@ export function LandingPage({ initialCount }: LandingPageProps) {
                 <Users className="mr-2 h-4 w-4" />
                 <span>Junte-se a <span className="font-bold text-accent-foreground">{userCount}</span> pessoas na espera!</span>
               </div>
+              <TaglineGenerator onGenerated={setTagline} />
             </CardFooter>
           </Card>
         </div>
