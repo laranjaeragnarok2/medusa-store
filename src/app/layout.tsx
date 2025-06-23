@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
+import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
 
 export const metadata: Metadata = {
   title: 'Medusa Store',
@@ -21,6 +22,7 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         {children}
+        <FloatingWhatsAppButton />
         <Toaster />
       </body>
     </html>
