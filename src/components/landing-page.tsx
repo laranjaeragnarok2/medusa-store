@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Users } from 'lucide-react';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { VideoBackground } from '@/components/video-background';
 import { WaitlistForm } from '@/components/waitlist-form';
 
@@ -33,10 +33,7 @@ export function LandingPage({ initialCount }: LandingPageProps) {
       <div className="flex min-h-screen w-full flex-col items-center justify-center p-4">
         <div className="animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}>
           <Card className="w-full max-w-md border-border/50 bg-card/60 shadow-2xl shadow-primary/10 backdrop-blur-lg">
-            <CardHeader className="text-center pb-4">
-              <CardTitle className="font-headline text-4xl tracking-tighter sm:text-5xl">EsperaPremiada</CardTitle>
-            </CardHeader>
-            <CardContent>
+            <CardContent className="pt-6">
               <WaitlistForm onSuccess={(newUserCount) => setUserCount(newUserCount)} />
             </CardContent>
             <CardFooter className="flex-col gap-4">
