@@ -1,14 +1,6 @@
 'use client';
 
 export function VideoBackground() {
-  // ATENÇÃO: Links do Vimeo como o que você forneceu não funcionam diretamente
-  // aqui porque são para a página do player, não para o arquivo de vídeo.
-  //
-  // Para funcionar, você precisa de um "Link direto" para o arquivo .mp4.
-  // No Vimeo, com uma conta paga, você encontra essa opção nas configurações de
-  // distribuição do seu vídeo.
-  //
-  // A pedido, estou usando a incorporação via iframe, adaptada para background.
   const vimeoEmbedUrl = "https://player.vimeo.com/video/1095753167?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0";
 
   return (
@@ -17,7 +9,7 @@ export function VideoBackground() {
         src={vimeoEmbedUrl}
         frameBorder="0"
         allow="autoplay; fullscreen; picture-in-picture"
-        className="absolute left-0 top-0 h-full w-full"
+        className="absolute left-1/2 top-1/2 h-auto w-auto min-h-full min-w-full -translate-x-1/2 -translate-y-1/2"
         title="Vimeo Background Video"
         data-ai-hint="abstract tech"
       />
