@@ -36,7 +36,7 @@ export function LandingPage({ initialCount }: LandingPageProps) {
           <Card className="w-full max-w-md border-border/50 bg-card/20 shadow-2xl shadow-primary/10">
             <CardHeader className="text-center">
               <Image
-                src="/logo.png"
+                src="https://iili.io/FT3tjGp.png"
                 alt="Medusa Store Logo"
                 width={150}
                 height={150}
