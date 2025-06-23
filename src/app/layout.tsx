@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'EsperaPremiada',
+  title: 'Medusa Store',
   description: 'Entre na nossa lista de espera exclusiva.',
 };
 

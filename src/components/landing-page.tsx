@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Users } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { VideoBackground } from '@/components/video-background';
@@ -32,8 +33,16 @@ export function LandingPage({ initialCount }: LandingPageProps) {
       <VideoBackground />
       <div className="flex min-h-screen w-full flex-col items-center justify-center p-4">
         <div className="animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}>
-          <Card className="w-full max-w-md border-border/50 bg-card/40 shadow-2xl shadow-primary/10 backdrop-blur-sm">
+          <Card className="w-full max-w-md border-border/50 bg-card/20 shadow-2xl shadow-primary/10">
             <CardHeader className="text-center">
+              <Image
+                src="/logo.png"
+                alt="Medusa Store Logo"
+                width={150}
+                height={150}
+                className="mx-auto mb-4"
+                priority
+              />
               <CardTitle className="font-headline text-3xl font-bold uppercase tracking-wider text-foreground">
                 Entre na nossa lista exclusiva
               </CardTitle>
