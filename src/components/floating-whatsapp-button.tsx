@@ -27,12 +27,13 @@ export function FloatingWhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        'fixed bottom-6 left-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform duration-300 ease-in-out hover:scale-110',
+        'fixed bottom-6 left-6 z-50 flex h-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform duration-300 ease-in-out hover:scale-110 px-4 gap-2',
         'animate-pulse-shadow'
       )}
-      aria-label="Fale conosco no WhatsApp"
+      aria-label="Envie mensagem no WhatsApp"
     >
       <WhatsAppIcon className="h-7 w-7" />
+      <span className="font-semibold">Envie mensagem no WhatsApp</span>
     </a>
   );
 }
