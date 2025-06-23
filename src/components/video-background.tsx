@@ -13,7 +13,7 @@ export function VideoBackground() {
         title="Vimeo Background Video"
         data-ai-hint="abstract tech"
       />
-      <div className="absolute inset-0 h-full w-full bg-background/80 backdrop-blur-sm" />
+      <div className="absolute inset-0 h-full w-full bg-background/70 backdrop-blur-[2px]" />
     </div>
   );
 }
