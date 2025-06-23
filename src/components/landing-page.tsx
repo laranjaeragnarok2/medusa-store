@@ -59,7 +59,7 @@ export function LandingPage({ initialCount }: LandingPageProps) {
                 <Users className="mr-2 h-4 w-4" />
                 <span>Junte-se a <span className="font-bold text-accent-foreground">{userCount}</span> pessoas na espera!</span>
               </div>
-              <Button asChild variant="ghost" size="sm" className="text-xs text-muted-foreground hover:text-accent-foreground">
+              <Button asChild variant="ghost" className="text-muted-foreground hover:text-accent-foreground">
                 <a href="https://www.instagram.com/oficialmedusastore/" target="_blank" rel="noopener noreferrer">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
