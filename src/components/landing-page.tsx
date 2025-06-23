@@ -32,13 +32,13 @@ export function LandingPage({ initialCount }: LandingPageProps) {
       <VideoBackground />
       <div className="flex min-h-screen w-full flex-col items-center justify-center p-4">
         <div className="animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}>
-          <Card className="w-full max-w-md border-border/50 bg-card/60 shadow-2xl shadow-primary/10 backdrop-blur-md">
+          <Card className="w-full max-w-md border-border/50 bg-card/40 shadow-2xl shadow-primary/10 backdrop-blur-sm">
             <CardHeader className="text-center">
               <CardTitle className="font-headline text-3xl font-bold uppercase tracking-wider text-foreground">
                 Entre na nossa lista exclusiva
               </CardTitle>
               <CardDescription className="text-base text-muted-foreground">
-                e receba descontos de até 50%
+                Receba ofertas especiais como até 50% de desconto
               </CardDescription>
             </CardHeader>
             <CardContent>
