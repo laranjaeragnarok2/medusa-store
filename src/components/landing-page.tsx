@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Users } from 'lucide-react';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { VideoBackground } from '@/components/video-background';
 import { WaitlistForm } from '@/components/waitlist-form';
 
@@ -32,8 +32,16 @@ export function LandingPage({ initialCount }: LandingPageProps) {
       <VideoBackground />
       <div className="flex min-h-screen w-full flex-col items-center justify-center p-4">
         <div className="animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}>
-          <Card className="w-full max-w-md border-border/50 bg-card/60 shadow-2xl shadow-primary/10 backdrop-blur-lg">
-            <CardContent className="pt-6">
+          <Card className="w-full max-w-md border-border/50 bg-card/60 shadow-2xl shadow-primary/10 backdrop-blur-md">
+            <CardHeader className="text-center">
+              <CardTitle className="font-headline text-3xl font-bold uppercase tracking-wider text-foreground">
+                Entre na nossa lista exclusiva
+              </CardTitle>
+              <CardDescription className="text-base text-muted-foreground">
+                e receba descontos de até 50%
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
               <WaitlistForm onSuccess={(newUserCount) => setUserCount(newUserCount)} />
             </CardContent>
             <CardFooter className="flex-col gap-4">
