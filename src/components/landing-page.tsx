@@ -6,7 +6,7 @@ import { Users } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { VideoBackground } from '@/components/video-background';
 import { WaitlistForm } from '@/components/waitlist-form';
-import { TaglineGenerator } from '@/components/tagline-generator';
+import { Button } from './ui/button';
 
 interface LandingPageProps {
   initialCount: number;
@@ -15,7 +15,6 @@ interface LandingPageProps {
 export function LandingPage({ initialCount }: LandingPageProps) {
   const [userCount, setUserCount] = useState(initialCount);
   const [isMounted, setIsMounted] = useState(false);
-  const [tagline, setTagline] = useState("Receba ofertas especiais como até 50% de desconto");
 
   useEffect(() => {
     setIsMounted(true);
@@ -49,7 +48,7 @@ export function LandingPage({ initialCount }: LandingPageProps) {
                 Entre na nossa lista exclusiva
               </CardTitle>
               <CardDescription className="text-base text-muted-foreground">
-                {tagline}
+                Receba ofertas especiais como até 50% de desconto
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -60,7 +59,27 @@ export function LandingPage({ initialCount }: LandingPageProps) {
                 <Users className="mr-2 h-4 w-4" />
                 <span>Junte-se a <span className="font-bold text-accent-foreground">{userCount}</span> pessoas na espera!</span>
               </div>
-              <TaglineGenerator onGenerated={setTagline} />
+              <Button asChild variant="ghost" size="sm" className="text-xs text-muted-foreground hover:text-accent-foreground">
+                <a href="https://www.instagram.com/oficialmedusastore/" target="_blank" rel="noopener noreferrer">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="mr-2 h-4 w-4"
+                    >
+                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                    </svg>
+                    Siga a gente no Instagram
+                </a>
+              </Button>
             </CardFooter>
           </Card>
         </div>

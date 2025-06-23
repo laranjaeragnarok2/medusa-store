@@ -1,7 +1,6 @@
 'use server';
 
 import { z } from 'zod';
-import { suggestTagline } from '@/ai/flows/suggest-tagline';
 import { appendToSheet, getSheetRowCount } from '@/services/google-sheets';
 
 export async function getInitialCount() {
@@ -38,13 +37,3 @@ export async function addToWaitlistAction(data: z.infer<typeof waitlistSchema>) 
         throw new Error(error instanceof Error ? error.message : "Ocorreu um erro ao se cadastrar.");
     }
 }
-
-export async function generateTaglineAction(productName: string, productDescription: string) {
-    try {
-      const result = await suggestTagline({ productName, productDescription });
-      return { tagline: result.tagline };
-    } catch (e) {
-      console.error(e);
-      return { error: 'Não foi possível gerar a tagline.' };
-    }
-  }
