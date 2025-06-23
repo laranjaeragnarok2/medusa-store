@@ -2,12 +2,15 @@
 
 import { z } from 'zod';
 import { suggestTagline } from '@/ai/flows/suggest-tagline';
-
-// In-memory store for demonstration. In a real app, use a database like Firestore.
-let userCount = 137;
+import { appendToSheet, getSheetRowCount } from '@/services/google-sheets';
 
 export async function getInitialCount() {
-    return userCount;
+    try {
+        return await getSheetRowCount();
+    } catch (error) {
+        console.error("Failed to get initial count from Sheet:", error);
+        return 0;
+    }
 }
 
 const waitlistSchema = z.object({
@@ -21,15 +24,19 @@ export async function addToWaitlistAction(data: z.infer<typeof waitlistSchema>) 
         throw new Error("Dados inválidos.");
     }
     
-    await new Promise(res => setTimeout(res, 1000));
-    
-    userCount++;
-    
-    return {
-        success: true,
-        newUserCount: userCount,
-        message: 'Obrigado! Você está na lista de espera.'
-    };
+    try {
+        await appendToSheet(validation.data);
+        const newUserCount = await getSheetRowCount();
+        
+        return {
+            success: true,
+            newUserCount,
+            message: 'Obrigado! Você está na lista de espera.'
+        };
+    } catch (error) {
+        console.error("Failed to add to waitlist:", error);
+        throw new Error(error instanceof Error ? error.message : "Ocorreu um erro ao se cadastrar.");
+    }
 }
 
 export async function generateTaglineAction(productName: string, productDescription: string) {
