@@ -7,12 +7,16 @@ interface WaitlistData {
   whatsapp: string;
 }
 
-const getGoogleSheetsClient = () => {
+function getGoogleSheetsApi() {
   const serviceAccountEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
   const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+  const spreadsheetId = process.env.GOOGLE_SHEET_ID;
 
-  if (!serviceAccountEmail || !privateKey) {
-    throw new Error('As credenciais da conta de serviço do Google não foram encontradas nas variáveis de ambiente.');
+  if (!serviceAccountEmail || !privateKey || !spreadsheetId) {
+    if (process.env.GOOGLE_SHEET_ID || process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || process.env.GOOGLE_PRIVATE_KEY) {
+         console.warn("Google Sheets credentials are not fully configured. API calls will be skipped.");
+    }
+    return null;
   }
 
   const auth = new google.auth.GoogleAuth({
@@ -23,29 +27,19 @@ const getGoogleSheetsClient = () => {
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
 
-  return google.sheets({ version: 'v4', auth });
-};
-
-const getSheetId = () => {
-    const sheetId = process.env.GOOGLE_SHEET_ID;
-    if (!sheetId) {
-        throw new Error('O ID da Planilha Google não foi encontrado nas variáveis de ambiente.');
-    }
-    return sheetId;
+  const sheets = google.sheets({ version: 'v4', auth });
+  return { sheets, spreadsheetId };
 }
 
-
 export async function appendToSheet(data: WaitlistData) {
-    try {
-        const sheets = getGoogleSheetsClient();
-        const spreadsheetId = getSheetId();
-        const range = 'A1';
+    const api = getGoogleSheetsApi();
+    if (!api) return; 
 
+    try {
         const newRow = [data.name, data.whatsapp, new Date().toISOString()];
-    
-        await sheets.spreadsheets.values.append({
-          spreadsheetId,
-          range,
+        await api.sheets.spreadsheets.values.append({
+          spreadsheetId: api.spreadsheetId,
+          range: 'A1',
           valueInputOption: 'USER_ENTERED',
           requestBody: {
             values: [newRow],
@@ -59,14 +53,13 @@ export async function appendToSheet(data: WaitlistData) {
 
 
 export async function getSheetRowCount(): Promise<number> {
-    try {
-        const sheets = getGoogleSheetsClient();
-        const spreadsheetId = getSheetId();
-        const range = 'A:A'; 
+    const api = getGoogleSheetsApi();
+    if (!api) return 0;
 
-        const response = await sheets.spreadsheets.values.get({
-            spreadsheetId,
-            range,
+    try {
+        const response = await api.sheets.spreadsheets.values.get({
+            spreadsheetId: api.spreadsheetId,
+            range: 'A:A',
         });
         
         return response.data.values ? response.data.values.length : 0;
