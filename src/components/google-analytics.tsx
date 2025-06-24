@@ -4,14 +4,14 @@ import Script from 'next/script';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const GA_MEASUREMENT_ID = 'G-X59LV19NKT';
 
 export function GoogleAnalytics() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (!GA_MEASUREMENT_ID || typeof window.gtag !== 'function') {
+    if (typeof window.gtag !== 'function') {
       return;
     }
 
@@ -20,13 +20,6 @@ export function GoogleAnalytics() {
       page_path: url,
     });
   }, [pathname, searchParams]);
-
-  if (!GA_MEASUREMENT_ID) {
-    console.warn(
-      'Google Analytics tracking ID is missing. Add NEXT_PUBLIC_GA_MEASUREMENT_ID to your environment variables.'
-    );
-    return null;
-  }
 
   return (
     <>
