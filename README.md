@@ -20,7 +20,7 @@ Este é o repositório para a landing page da Medusa Store. O projeto consiste e
 - **Estilização:** [Tailwind CSS](https://tailwindcss.com/)
 - **Componentes UI:** [ShadCN UI](https://ui.shadcn.com/)
 - **Banco de Dados:** [Firebase Firestore](https://firebase.google.com/docs/firestore)
-- **Deployment:** Otimizado para plataformas como [Vercel](https://vercel.com/) e [Firebase App Hosting](https://firebase.google.com/docs/app-hosting).
+- **Deployment:** Otimizado para plataformas como [Vercel](https://vercel.com/).
 
 ## Configuração do Projeto
 
@@ -117,4 +117,12 @@ Abra [http://localhost:9002](http://localhost:9002) no seu navegador.
 
 ## Deployment (Publicação)
 
-Ao fazer o deploy em plataformas como **Vercel** ou **Firebase App Hosting**, lembre-se de configurar as mesmas variáveis de ambiente (`NEXT_PUBLIC_*` e `FIREBASE_*`) no painel de configurações do seu projeto na plataforma de hospedagem.
+Ao fazer o deploy em plataformas como a **Vercel**, lembre-se de configurar as mesmas variáveis de ambiente (`NEXT_PUBLIC_*` e `FIREBASE_*`) no painel de configurações do seu projeto na plataforma de hospedagem. Vá para **Settings > Environment Variables** para adicionar cada uma das chaves.
+
+### Verificando a Configuração na Vercel
+
+Após adicionar as variáveis de ambiente na Vercel e fazer um novo deploy, siga estes passos para confirmar que tudo está funcionando:
+
+1.  **Sucesso no Build:** O primeiro sinal é um deploy bem-sucedido na Vercel, sem erros relacionados ao Firebase nos logs.
+2.  **Teste do Formulário:** Acesse seu site no domínio da Vercel. Preencha e envie o formulário. Se o pop-up de sucesso aparecer e seu registro for salvo no Firestore, as chaves `NEXT_PUBLIC_*` estão corretas.
+3.  **Teste do Download:** Acesse `seudominio.com/api/download-waitlist`. Se um arquivo CSV for baixado, as chaves de servidor (`FIREBASE_*`) e as regras do Firestore estão corretas.
