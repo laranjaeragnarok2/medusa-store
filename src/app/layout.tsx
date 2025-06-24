@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
   title: 'Medusa Store',
@@ -24,6 +25,7 @@ export default function RootLayout({
         {children}
         <FloatingWhatsAppButton />
         <Toaster />
+        <SpeedInsights />
       </body>
     </html>
   );
