@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { getAdminDb } from '@/lib/firebase-admin';
 
+// Força a rota a ser 100% dinâmica, impedindo que a Vercel tente executá-la durante o build.
+export const dynamic = 'force-dynamic';
+
 /**
  * Converte um array de objetos em uma string no formato CSV.
  * @param {Record<string, any>[]} data - O array de objetos a ser convertido.
@@ -65,6 +68,8 @@ export async function GET() {
   } catch (error) {
     console.error('Error fetching waitlist for download:', error);
     const errorMessage = error instanceof Error ? error.message : 'Ocorreu um erro desconhecido.';
-    return new NextResponse(`Erro ao gerar o arquivo: ${errorMessage} Verifique se as variáveis de ambiente do servidor estão configuradas corretamente na Vercel e se as regras do Firestore permitem a leitura pelo servidor.`, { status: 500 });
+    // Mensagem de erro explícita para o caso de falha na Vercel.
+    const detailedError = `ERRO 500: Falha ao buscar a lista. MOTIVO: ${errorMessage}. VERIFIQUE: 1) Se as 3 variáveis de ambiente do servidor (FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY) estão corretas no painel da Vercel. 2) Se as regras do Firestore permitem a leitura pelo e-mail do servidor.`;
+    return new NextResponse(detailedError, { status: 500 });
   }
 }
