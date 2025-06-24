@@ -2,32 +2,16 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Users } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { VideoBackground } from '@/components/video-background';
 import { WaitlistForm } from '@/components/waitlist-form';
 import { Button } from './ui/button';
-import { db } from '@/lib/firebase-client';
-import { collection, onSnapshot } from 'firebase/firestore';
 
 export function LandingPage() {
-  const [userCount, setUserCount] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
-
-    const q = collection(db, "waitlist");
-    const unsubscribe = onSnapshot(q, 
-      (querySnapshot) => {
-        setUserCount(querySnapshot.size);
-      },
-      (error) => {
-        console.error("Failed to subscribe to waitlist count:", error);
-      }
-    );
-
-    return () => unsubscribe();
   }, []);
 
   if (!isMounted) {
@@ -64,10 +48,6 @@ export function LandingPage() {
               <WaitlistForm />
             </CardContent>
             <CardFooter className="flex-col gap-4">
-              <div className="flex items-center text-sm text-muted-foreground">
-                <Users className="mr-2 h-4 w-4" />
-                <span>Junte-se a <span className="font-bold text-accent-foreground">{userCount}</span> pessoas na espera!</span>
-              </div>
               <Button asChild className="border border-border/50 bg-transparent text-muted-foreground transition-colors hover:border-transparent hover:bg-gradient-to-br hover:from-instagram-1 hover:via-instagram-2 hover:to-instagram-3 hover:text-white">
                 <a href="https://www.instagram.com/oficialmedusastore/" target="_blank" rel="noopener noreferrer">
                     <svg
