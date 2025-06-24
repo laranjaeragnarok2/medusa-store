@@ -62,6 +62,17 @@ export function WaitlistForm() {
   });
 
   const onSubmit = async (values: WaitlistFormValues) => {
+    if (!db) {
+      console.error("Firebase (db) não foi inicializado. Verifique as variáveis de ambiente NEXT_PUBLIC_*");
+      toast({
+          variant: 'destructive',
+          title: 'Erro de Configuração',
+          description: 'A conexão com o banco de dados falhou. Verifique se as chaves NEXT_PUBLIC_* estão corretas na Vercel.',
+          duration: 9000,
+      });
+      return;
+    }
+
     setIsPending(true);
 
     const writePromise = addDoc(collection(db, 'waitlist'), {

@@ -10,16 +10,18 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Adiciona uma verificação para garantir que as variáveis de ambiente essenciais estão presentes.
-// Isso ajuda a diagnosticar problemas de configuração durante o desenvolvimento e no deploy.
-if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
+// Validação CRÍTICA para o lado do cliente (navegador).
+// Se estas chaves não estiverem corretas na Vercel, o formulário e o contador NÃO VÃO FUNCIONAR.
+const areClientVarsDefined = firebaseConfig.apiKey && firebaseConfig.projectId;
+
+if (!areClientVarsDefined && typeof window !== 'undefined') {
   console.error(
-    'Configuração do Firebase incompleta. Verifique se as variáveis de ambiente NEXT_PUBLIC_FIREBASE_API_KEY e NEXT_PUBLIC_FIREBASE_PROJECT_ID estão definidas corretamente no seu ambiente (arquivo .env ou nas configurações da Vercel).'
+    'ERRO CRÍTICO DE CONFIGURAÇÃO: As variáveis de ambiente do Firebase para o cliente (NEXT_PUBLIC_*) não foram encontradas. Verifique se você as adicionou corretamente nas "Environment Variables" do seu projeto na Vercel.'
   );
 }
 
-// Initialize Firebase
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const db = getFirestore(app);
+// Inicializa o Firebase apenas se as chaves estiverem definidas.
+const app = areClientVarsDefined ? (!getApps().length ? initializeApp(firebaseConfig) : getApp()) : null;
+const db = app ? getFirestore(app) : null;
 
 export { db };
