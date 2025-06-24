@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
 import { db } from '@/lib/firebase-client';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc } from 'firebase/firestore';
 
 const waitlistFormSchema = z.object({
   name: z.string().min(2, { message: 'O nome precisa ter no mínimo 2 caracteres.' }),
@@ -31,9 +31,12 @@ export function WaitlistForm() {
   const onSubmit = async (values: WaitlistFormValues) => {
     setIsPending(true);
     try {
+      // Usando new Date() em vez de serverTimestamp() para evitar que a promise "trave"
+      // em caso de problemas de permissão ou configuração no Firebase.
+      // Isso garante que o erro será capturado e o spinner irá parar.
       await addDoc(collection(db, "waitlist"), {
         ...values,
-        timestamp: serverTimestamp(),
+        timestamp: new Date(),
       });
       
       toast({
@@ -43,10 +46,11 @@ export function WaitlistForm() {
       form.reset();
 
     } catch (error) {
+      console.error("Erro ao se cadastrar:", error);
       toast({
         variant: 'destructive',
-        title: 'Erro',
-        description: error instanceof Error ? error.message : 'Ocorreu um erro ao se cadastrar.',
+        title: 'Ops! Algo deu errado.',
+        description: 'Não foi possível enviar seus dados. Verifique se as variáveis de ambiente do cliente (NEXT_PUBLIC_*) estão configuradas corretamente na Vercel.',
       });
     } finally {
       setIsPending(false);
