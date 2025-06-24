@@ -21,7 +21,7 @@ export function LandingPage() {
                 priority
               />
               <CardTitle className="font-cyber text-3xl font-bold text-primary">
-                Seja bem-vindo à nova loja virtual da Medusa Store!
+                Seja bem-vindo à loja virtual da Medusa Store!
               </CardTitle>
               <CardDescription className="text-base text-muted-foreground">
                 Seja o primeiro a saber quando realizarmos o lançamento e fique por dentro de peças exclusivas e cupons de desconto!
