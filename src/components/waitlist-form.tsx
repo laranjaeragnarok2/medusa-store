@@ -24,12 +24,16 @@ const waitlistFormSchema = z.object({
 type WaitlistFormValues = z.infer<typeof waitlistFormSchema>;
 
 export function WaitlistForm() {
-  const [state, handleSubmit] = useFormspree('myzjnvzv');
+  const [state, formspreeSubmit] = useFormspree('myzjnvzv');
 
   const form = useForm<WaitlistFormValues>({
     resolver: zodResolver(waitlistFormSchema),
     defaultValues: { name: '', whatsapp: '' },
   });
+
+  function onSubmit(data: WaitlistFormValues) {
+    formspreeSubmit(data);
+  }
 
   if (state.succeeded) {
     return (
@@ -45,7 +49,7 @@ export function WaitlistForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="name"

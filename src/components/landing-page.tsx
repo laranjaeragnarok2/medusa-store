@@ -38,10 +38,10 @@ export function LandingPage() {
                 priority
               />
               <CardTitle className="text-3xl font-bold uppercase tracking-wider text-foreground">
-                Entre na nossa lista exclusiva
+                Acesso Antecipado e Ofertas VIP
               </CardTitle>
               <CardDescription className="text-base text-muted-foreground">
-                Receba ofertas especiais como até 50% de desconto
+                Seja o primeiro a saber dos lançamentos e ganhe descontos de até 50%.
               </CardDescription>
             </CardHeader>
             <CardContent>
