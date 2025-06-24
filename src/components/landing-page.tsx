@@ -37,11 +37,11 @@ export function LandingPage() {
                 className="mx-auto mb-4"
                 priority
               />
-              <CardTitle className="text-3xl font-bold uppercase tracking-wider text-foreground">
-                Acesso Antecipado e Ofertas VIP
+              <CardTitle className="text-3xl font-bold text-foreground">
+                Seja bem-vindo à nova loja virtual da Medusa Store!
               </CardTitle>
               <CardDescription className="text-base text-muted-foreground">
-                Seja o primeiro a saber dos lançamentos e ganhe descontos de até 50%.
+                Seja o primeiro a saber quando realizarmos o lançamento e fique por dentro de peças exclusivas e cupons de desconto!
               </CardDescription>
             </CardHeader>
             <CardContent>
