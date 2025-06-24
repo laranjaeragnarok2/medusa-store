@@ -7,7 +7,7 @@ Este é o repositório para a landing page da Medusa Store. O projeto consiste e
 - **Formulário de Lista de Espera:** Coleta o nome e o número de WhatsApp dos usuários.
 - **Integração com Firebase Firestore:** Os dados submetidos no formulário são salvos em tempo real no banco de dados Firestore do Firebase, garantindo segurança e escalabilidade.
 - **Contador de Inscritos:** Exibe dinamicamente o número de pessoas que já se inscreveram, buscando a contagem diretamente do Firestore.
-- **Design Moderno e Imersivo:** Interface com tema escuro, fontes estilizadas (Orbitron para títulos) e um fundo de vídeo para criar uma experiência de usuário atraente.
+- **Design Moderno e Imersivo:** Interface com tema escuro, fontes estilizadas e um fundo de vídeo para criar uma experiência de usuário atraente.
 - **Botão Flutuante do WhatsApp:** Permite que os usuários iniciem uma conversa diretamente com a loja com uma mensagem pré-definida, facilitando o contato.
 - **Botão para Instagram:** Promove o perfil da loja no Instagram com um efeito de gradiente interativo.
 - **Totalmente Responsivo:** O layout se adapta perfeitamente a dispositivos móveis e desktops.
@@ -18,9 +18,8 @@ Este é o repositório para a landing page da Medusa Store. O projeto consiste e
 - **Linguagem:** [TypeScript](https://www.typescriptlang.org/)
 - **Estilização:** [Tailwind CSS](https://tailwindcss.com/)
 - **Componentes UI:** [ShadCN UI](https://ui.shadcn.com/)
-- **Inteligência Artificial:** [Genkit](https://firebase.google.com/docs/genkit) com o modelo Gemini do Google para a funcionalidade de geração de tagline (presente no código).
 - **Banco de Dados:** [Firebase Firestore](https://firebase.google.com/docs/firestore)
-- **Deployment:** Preparado para [Firebase App Hosting](https://firebase.google.com/docs/app-hosting).
+- **Deployment:** Otimizado para plataformas como [Vercel](https://vercel.com/) e [Firebase App Hosting](https://firebase.google.com/docs/app-hosting).
 
 ## Configuração do Projeto
 
@@ -63,10 +62,6 @@ NEXT_PUBLIC_FIREBASE_PROJECT_ID="seu-valor-do-project-id"
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="seu-valor-do-storage-bucket"
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="seu-valor-do-messaging-sender-id"
 NEXT_PUBLIC_FIREBASE_APP_ID="seu-valor-do-app-id"
-
-# Opcional: Google AI (Genkit)
-# Obtenha sua chave na Google AI Studio: https://aistudio.google.com/app/apikey
-GOOGLE_API_KEY="SUA_API_KEY_DO_GOOGLE_AI"
 ```
 
 ### 4. Configurar o Banco de Dados (Firebase Firestore)
@@ -102,3 +97,12 @@ npm run dev
 ```
 
 Abra [http://localhost:9002](http://localhost:9002) no seu navegador para ver o resultado.
+
+## Deployment (Publicação)
+
+Para publicar seu site, recomendamos plataformas que oferecem integração contínua com repositórios Git:
+
+- **[Vercel](https://vercel.com/):** É a plataforma dos criadores do Next.js. A integração é extremamente simples: crie uma conta, importe seu repositório do GitHub/GitLab/Bitbucket e a Vercel fará o build e o deploy automaticamente.
+- **[Firebase App Hosting](https://firebase.google.com/docs/app-hosting):** Também é uma ótima opção, totalmente integrada com o ecossistema do Firebase.
+
+Em ambos os casos, você poderá conectar seu próprio domínio personalizado.
