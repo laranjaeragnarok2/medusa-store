@@ -4,12 +4,12 @@ export function VideoBackground() {
   const vimeoEmbedUrl = "https://player.vimeo.com/video/1095753167?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0";
 
   return (
-    <div className="fixed inset-0 -z-10 h-full w-full overflow-hidden">
+    <div className="fixed inset-0 -z-10 h-screen w-screen overflow-hidden">
        <iframe
         src={vimeoEmbedUrl}
         frameBorder="0"
         allow="autoplay; fullscreen; picture-in-picture"
-        className="absolute left-1/2 top-1/2 h-auto w-auto min-h-full min-w-full -translate-x-1/2 -translate-y-1/2"
+        className="absolute left-1/2 top-1/2 min-h-screen w-auto min-w-full -translate-x-1/2 -translate-y-1/2 object-cover"
         title="Vimeo Background Video"
         data-ai-hint="abstract tech"
       />
