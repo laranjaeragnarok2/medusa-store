@@ -1,51 +1,84 @@
-# Medusa Store - Landing Page de Lista de Espera
+<div align="center">
+  <img src="https://iili.io/FT3tjGp.png" alt="Medusa Store Logo" width="200"/>
+  <h1><b>Medusa Store - Landing Page</b></h1>
+</div>
 
-Este é o repositório para a landing page da Medusa Store. O projeto consiste em uma página de captura para uma lista de espera, com o objetivo de coletar contatos de clientes interessados e engajá-los através de canais como WhatsApp e Instagram.
+<p align="center">
+  <a href="https://medusa-store.shop" target="_blank">
+    <img src="https://img.shields.io/badge/Acessar%20Site-Live%20Preview-brightgreen?style=for-the-badge&logo=vercel" alt="Live Preview">
+  </a>
+</p>
 
-## Funcionalidades
+<div align="center">
+  <img src="https://iili.io/Jt1U3Vj.png" alt="Medusa Store Preview" width="800"/>
+</div>
 
-- **Formulário de Lista de Espera:** Coleta o nome e o número de WhatsApp dos usuários através do **Formspree**.
-- **Notificações por Email:** Cada novo cadastro é enviado diretamente para o seu e-mail.
-- **Painel de Controle:** O Formspree oferece um painel onde você pode ver todos os inscritos e exportá-los como CSV.
-- **Design Moderno e Imersivo:** Interface com tema escuro, fontes estilizadas e um fundo de vídeo para criar uma experiência de usuário atraente.
-- **Botão Flutuante do WhatsApp:** Permite que os usuários iniciem uma conversa diretamente com a loja com uma mensagem pré-definida.
-- **Botão para Instagram:** Promove o perfil da loja no Instagram.
-- **Totalmente Responsivo:** O layout se adapta perfeitamente a dispositivos móveis e desktops.
+---
 
-## Tecnologias Utilizadas
+## ✨ Funcionalidades
 
-- **Framework:** [Next.js](https://nextjs.org/) (com App Router)
-- **Linguagem:** [TypeScript](https://www.typescriptlang.org/)
-- **Estilização:** [Tailwind CSS](https://tailwindcss.com/)
-- **Componentes UI:** [ShadCN UI](https://ui.shadcn.com/)
-- **Serviço de Formulário:** [Formspree](https://formspree.io/)
-- **Deployment:** Otimizado para plataformas como [Vercel](https://vercel.com/).
+- **📝 Formulário de Lista de Espera:** Coleta de contatos (nome e WhatsApp) via **Formspree**.
+- **🚀 Notificações Instantâneas:** Cada novo cadastro é enviado diretamente para seu e-mail.
+- **📊 Painel de Controle:** O Formspree oferece um painel completo para visualizar e exportar inscritos.
+- **🎨 Design Moderno e Imersivo:** Tema escuro, fontes estilizadas e fundo de vídeo para uma experiência atraente.
+- **📱 Totalmente Responsivo:** Layout perfeito para desktops e dispositivos móveis.
+- **💬 Contato Direto:** Botões flutuantes para WhatsApp e um link direto para o Instagram.
 
-## Configuração do Projeto
+---
 
-Para rodar este projeto localmente, siga os passos abaixo.
+## 🛠️ Tecnologias Utilizadas
 
-### 1. Clonar o Repositório
+<p align="center">
+  <a href="https://nextjs.org/" target="_blank">
+    <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js">
+  </a>
+  <a href="https://react.dev/" target="_blank">
+    <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React">
+  </a>
+  <a href="https://www.typescriptlang.org/" target="_blank">
+    <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
+  </a>
+  <a href="https://tailwindcss.com/" target="_blank">
+    <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS">
+  </a>
+  <a href="https://ui.shadcn.com/" target="_blank">
+    <img src="https://img.shields.io/badge/shadcn/ui-000000?style=for-the-badge&logo=shadcnui&logoColor=white" alt="ShadCN/UI">
+  </a>
+   <a href="https://formspree.io/" target="_blank">
+    <img src="https://img.shields.io/badge/Formspree-E94B3C?style=for-the-badge&logo=formspree&logoColor=white" alt="Formspree">
+  </a>
+  <a href="https://vercel.com/" target="_blank">
+    <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel">
+  </a>
+</p>
 
+---
+
+## 🚀 Começando
+
+Siga os passos abaixo para rodar o projeto localmente.
+
+### 1. Clone o Repositório
 ```bash
-git clone <URL_DO_SEU_REPOSITORIO>
-cd <NOME_DA_PASTA>
+git clone https://github.com/laranjaeragnarok2/medusa-store.git
+cd medusa-store
 ```
 
-### 2. Instalar as Dependências
-
+### 2. Instale as Dependências
 ```bash
 npm install
 ```
 
-### 3. Rodar o Servidor de Desenvolvimento
-
+### 3. Rode o Servidor de Desenvolvimento
 ```bash
 npm run dev
 ```
+Abra [http://localhost:9002](http://localhost:9002) no seu navegador para ver o resultado.
 
-Abra [http://localhost:9002](http://localhost:9002) no seu navegador. O projeto já está pré-configurado para enviar os dados do formulário para uma conta Formspree.
+---
 
-## Deployment (Publicação na Vercel)
+## ☁️ Deployment
 
-Não é necessário configurar nenhuma variável de ambiente na Vercel! Como o Form ID já está no código, basta fazer o deploy do seu projeto e ele funcionará automaticamente.
+O deploy na **Vercel** é a forma recomendada de publicar este projeto.
+
+Não é necessário configurar nenhuma variável de ambiente! Como o Form ID já está no código, basta conectar seu repositório à Vercel e fazer o deploy. O projeto funcionará automaticamente.
