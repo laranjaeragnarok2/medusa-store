@@ -78,14 +78,15 @@ export function WaitlistForm() {
       setShowSuccessDialog(true);
       form.reset();
     } catch (error: any) {
-      console.error('Erro ao se cadastrar:', error);
+      console.error('Erro detalhado ao se cadastrar:', error);
 
-      let description = 'Não foi possível enviar seus dados. Tente novamente mais tarde.';
+      let description = 'Não foi possível enviar seus dados. Verifique sua conexão e tente novamente.';
       if (error.message === 'Timeout') {
-        description =
-          'A operação demorou muito. Verifique sua conexão e a configuração das chaves do Firebase na Vercel.';
-      } else if (error.code === 'permission-denied') {
-        description = 'Permissão negada. Verifique as regras de segurança do seu Firestore.';
+        description = 'A operação demorou demais. Isso geralmente indica um problema com as chaves "NEXT_PUBLIC_" na Vercel ou com a sua conexão.';
+      } else if (error.code === 'permission-denied' || error.code === 'unauthenticated') {
+        description = 'Permissão negada. Verifique se as Regras de Segurança do seu Firestore estão corretas para permitir a escrita pública na coleção "waitlist".';
+      } else if (error.code) {
+        description = `Ocorreu um erro no Firebase (${error.code}). Por favor, verifique o console do navegador para mais detalhes e a configuração do seu projeto.`;
       }
 
       toast({
