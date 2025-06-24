@@ -19,11 +19,7 @@ const waitlistFormSchema = z.object({
 
 type WaitlistFormValues = z.infer<typeof waitlistFormSchema>;
 
-interface WaitlistFormProps {
-  onSuccess: () => void;
-}
-
-export function WaitlistForm({ onSuccess }: WaitlistFormProps) {
+export function WaitlistForm() {
   const { toast } = useToast();
   const [isPending, setIsPending] = useState(false);
 
@@ -40,7 +36,6 @@ export function WaitlistForm({ onSuccess }: WaitlistFormProps) {
         timestamp: serverTimestamp(),
       });
       
-      onSuccess();
       toast({
         title: 'Sucesso!',
         description: 'Obrigado! Você está na lista de espera.',

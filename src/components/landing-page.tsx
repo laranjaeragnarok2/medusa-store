@@ -7,19 +7,28 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription }
 import { VideoBackground } from '@/components/video-background';
 import { WaitlistForm } from '@/components/waitlist-form';
 import { Button } from './ui/button';
+import { db } from '@/lib/firebase-client';
+import { collection, onSnapshot } from 'firebase/firestore';
 
-interface LandingPageProps {
-  initialCount: number;
-}
-
-export function LandingPage({ initialCount }: LandingPageProps) {
-  const [userCount, setUserCount] = useState(initialCount);
+export function LandingPage() {
+  const [userCount, setUserCount] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
-    setUserCount(initialCount);
-  }, [initialCount]);
+
+    const q = collection(db, "waitlist");
+    const unsubscribe = onSnapshot(q, 
+      (querySnapshot) => {
+        setUserCount(querySnapshot.size);
+      },
+      (error) => {
+        console.error("Failed to subscribe to waitlist count:", error);
+      }
+    );
+
+    return () => unsubscribe();
+  }, []);
 
   if (!isMounted) {
     return (
@@ -52,7 +61,7 @@ export function LandingPage({ initialCount }: LandingPageProps) {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <WaitlistForm onSuccess={() => setUserCount(count => count + 1)} />
+              <WaitlistForm />
             </CardContent>
             <CardFooter className="flex-col gap-4">
               <div className="flex items-center text-sm text-muted-foreground">
