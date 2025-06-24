@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { adminDb } from '@/lib/firebase-admin';
+import { getAdminDb } from '@/lib/firebase-admin';
 
 /**
  * Converte um array de objetos em uma string no formato CSV.
@@ -30,6 +30,8 @@ function toCsv(data: Record<string, any>[]) {
  */
 export async function GET() {
   try {
+    // A inicialização do Admin SDK agora é "lazy" (preguiçosa) e acontece aqui, em tempo de execução.
+    const adminDb = getAdminDb();
     const waitlistSnapshot = await adminDb.collection('waitlist').orderBy('timestamp', 'asc').get();
     
     if (waitlistSnapshot.empty) {
@@ -62,6 +64,7 @@ export async function GET() {
 
   } catch (error) {
     console.error('Error fetching waitlist for download:', error);
-    return new NextResponse('Erro ao gerar o arquivo. Verifique os logs do servidor e as configurações de permissão do Firestore.', { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'Ocorreu um erro desconhecido.';
+    return new NextResponse(`Erro ao gerar o arquivo: ${errorMessage} Verifique se as variáveis de ambiente do servidor estão configuradas corretamente na Vercel e se as regras do Firestore permitem a leitura pelo servidor.`, { status: 500 });
   }
 }
