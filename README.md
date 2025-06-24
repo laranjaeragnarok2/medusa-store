@@ -44,27 +44,60 @@ cd <NOME_DA_PASTA>
 npm install
 ```
 
-### 3. Configurar Variáveis de Ambiente
+### 3. Configurar Variáveis de Ambiente (Credenciais do Google)
 
-Para que a integração com o Google Sheets e Genkit funcione, você precisa configurar suas credenciais em um arquivo `.env`.
+Para que a integração com o Google Sheets funcione, você precisa configurar suas credenciais. Siga este passo a passo detalhado:
 
-1. **Crie uma Planilha Google** com as colunas `Nome` e `WhatsApp` na primeira linha.
-2. **Siga o guia de autenticação do Google** para [criar uma Conta de Serviço](https://theoephraim.github.io/node-google-spreadsheet/#/getting-started/authentication?id=service-account) e baixe as credenciais em formato `.json`.
-3. **Compartilhe sua planilha** com o `client_email` da Conta de Serviço (encontrado no arquivo `.json`) e dê a ele permissão de **Editor**.
-4. **Crie um arquivo `.env`** na raiz do projeto e adicione as seguintes variáveis, preenchendo com os seus dados:
+#### Etapa 1: Criar uma Conta de Serviço no Google Cloud
+
+1.  Acesse o [Console do Google Cloud](https://console.cloud.google.com/).
+2.  Selecione seu projeto ou crie um novo.
+3.  No menu de navegação, vá para **"IAM e Admin"** > **"Contas de Serviço"**.
+4.  Clique em **"+ CRIAR CONTA de SERVIÇO"**.
+5.  Dê um nome para a conta (ex: `sheets-updater`) e uma descrição. Clique em **"CRIAR E CONTINUAR"**.
+6.  Na seção de permissões (papel), selecione **"Projeto"** > **"Editor"**. Clique em **"CONTINUAR"**.
+7.  Pule a terceira etapa (conceder acesso aos usuários) e clique em **"CONCLUÍDO"**.
+
+#### Etapa 2: Gerar uma Chave para a Conta de Serviço
+
+1.  Na lista de contas de serviço, encontre a que você acabou de criar.
+2.  Clique nos três pontos (ações) na coluna da direita e selecione **"Gerenciar chaves"**.
+3.  Clique em **"ADICIONAR CHAVE"** > **"Criar nova chave"**.
+4.  Selecione o tipo **JSON** e clique em **"CRIAR"**.
+5.  Um arquivo `.json` será baixado para o seu computador. **Guarde este arquivo em um local seguro, ele contém suas credenciais.**
+
+#### Etapa 3: Compartilhar a Planilha Google
+
+1.  Abra o arquivo `.json` que você baixou. Você verá um campo chamado `"client_email"`. Copie este endereço de e-mail (algo como `...gserviceaccount.com`).
+2.  Vá para a sua [Planilha Google](https://docs.google.com/spreadsheets/d/1nkIO_LJ0X1qsPrQlcUB9TI2t9ecOTYrVmM_3ARaINmM/).
+3.  Clique em **"Compartilhar"** no canto superior direito.
+4.  Cole o `"client_email"` no campo de adicionar pessoas e grupos.
+5.  Garanta que a permissão seja de **Editor** e clique em **"Enviar"**.
+
+#### Etapa 4: Configurar o Arquivo `.env`
+
+1.  Crie um arquivo chamado `.env` na raiz do seu projeto.
+2.  Abra o arquivo `.json` novamente.
+3.  Copie e cole as informações nos campos correspondentes no arquivo `.env`:
 
 ```env
 # Google Sheets API Credentials
-GOOGLE_SHEET_ID="COLE_O_ID_DA_SUA_PLANILHA_AQUI"
+# O ID da sua planilha já está aqui. Ele é extraído da URL.
+GOOGLE_SHEET_ID="1nkIO_LJ0X1qsPrQlcUB9TI2t9ecOTYrVmM_3ARaINmM"
+
+# Cole o valor do campo "client_email" do seu arquivo .json aqui.
 GOOGLE_SERVICE_ACCOUNT_EMAIL="seu-email-de-servico@....iam.gserviceaccount.com"
-GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nSUA_CHAVE_PRIVADA_AQUI\n-----END PRIVATE KEY-----\n"
+
+# Cole o valor do campo "private_key" do seu arquivo .json aqui.
+# IMPORTANTE: Mantenha as aspas e substitua as quebras de linha por "\n".
+GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nSUA_CHAVE_PRIVADA_AQUI...\n-----END PRIVATE KEY-----\n"
 
 # Opcional: Google AI (Genkit)
 # Obtenha sua chave na Google AI Studio: https://aistudio.google.com/app/apikey
 GOOGLE_API_KEY="SUA_API_KEY_DO_GOOGLE_AI"
 ```
 
-> **Nota:** A `GOOGLE_PRIVATE_KEY` deve ser copiada do arquivo `.json` e as quebras de linha devem ser substituídas por `\n` para que o ambiente a leia corretamente.
+> **Nota:** A `GOOGLE_PRIVATE_KEY` deve ser copiada exatamente como está no arquivo `.json`, incluindo `-----BEGIN PRIVATE KEY-----` e `-----END PRIVATE KEY-----`. As quebras de linha `\n` dentro da chave precisam ser preservadas como texto `\n` dentro das aspas no arquivo `.env`.
 
 ### 4. Rodar o Servidor de Desenvolvimento
 
