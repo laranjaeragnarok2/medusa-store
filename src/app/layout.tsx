@@ -3,6 +3,14 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Alegreya } from 'next/font/google';
+
+const alegreya = Alegreya({
+  subsets: ['latin'],
+  weight: ['400', '700', '900'],
+  variable: '--font-alegreya',
+});
+
 
 export const metadata: Metadata = {
   title: 'Medusa Store',
@@ -15,13 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className="dark">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700;900&display=swap" rel="stylesheet" />
-      </head>
-      <body className="antialiased">
+    <html lang="pt-BR" className={`dark ${alegreya.variable}`}>
+      <body className="font-sans antialiased">
         {children}
         <FloatingWhatsAppButton />
         <Toaster />

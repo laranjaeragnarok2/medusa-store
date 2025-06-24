@@ -9,7 +9,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Alegreya', 'serif'],
+        sans: ['var(--font-alegreya)', 'serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
