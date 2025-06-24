@@ -5,8 +5,8 @@ Este é o repositório para a landing page da Medusa Store. O projeto consiste e
 ## Funcionalidades
 
 - **Formulário de Lista de Espera:** Coleta o nome e o número de WhatsApp dos usuários.
-- **Integração com Google Sheets:** Os dados submetidos no formulário são salvos automaticamente em uma planilha do Google Sheets em tempo real.
-- **Contador de Inscritos:** Exibe dinamicamente o número de pessoas que já se inscreveram, buscando a contagem diretamente da planilha.
+- **Integração com Firebase Firestore:** Os dados submetidos no formulário são salvos em tempo real no banco de dados Firestore do Firebase, garantindo segurança e escalabilidade.
+- **Contador de Inscritos:** Exibe dinamicamente o número de pessoas que já se inscreveram, buscando a contagem diretamente do Firestore.
 - **Design Moderno e Imersivo:** Interface com tema escuro, fontes estilizadas (Orbitron para títulos) e um fundo de vídeo para criar uma experiência de usuário atraente.
 - **Botão Flutuante do WhatsApp:** Permite que os usuários iniciem uma conversa diretamente com a loja com uma mensagem pré-definida, facilitando o contato.
 - **Botão para Instagram:** Promove o perfil da loja no Instagram com um efeito de gradiente interativo.
@@ -19,7 +19,7 @@ Este é o repositório para a landing page da Medusa Store. O projeto consiste e
 - **Estilização:** [Tailwind CSS](https://tailwindcss.com/)
 - **Componentes UI:** [ShadCN UI](https://ui.shadcn.com/)
 - **Inteligência Artificial:** [Genkit](https://firebase.google.com/docs/genkit) com o modelo Gemini do Google para a funcionalidade de geração de tagline (presente no código).
-- **Armazenamento de Dados:** [Google Sheets API](https://developers.google.com/sheets/api)
+- **Banco de Dados:** [Firebase Firestore](https://firebase.google.com/docs/firestore)
 - **Deployment:** Preparado para [Firebase App Hosting](https://firebase.google.com/docs/app-hosting).
 
 ## Configuração do Projeto
@@ -44,62 +44,32 @@ cd <NOME_DA_PASTA>
 npm install
 ```
 
-### 3. Configurar Variáveis de Ambiente (Credenciais do Google)
+### 3. Configurar o Banco de Dados (Firebase Firestore)
 
-Para que a integração com o Google Sheets funcione, você precisa configurar suas credenciais. Siga este passo a passo detalhado:
+Para que o formulário da lista de espera funcione, você precisa ativar o Firestore no seu projeto Firebase. É um processo muito mais simples que o anterior:
 
-#### Etapa 1: Criar uma Conta de Serviço no Google Cloud
+1.  Acesse o **[Console do Firebase](https://console.firebase.google.com/)** e selecione seu projeto.
+2.  No menu lateral (seção "Build"), clique em **"Firestore Database"**.
+3.  Clique em **"Criar banco de dados"**.
+4.  Escolha iniciar no **Modo de produção** (Production mode) e clique em "Avançar".
+5.  Selecione uma localização para seus dados (ex: `southamerica-east1` para São Paulo) e clique em **"Ativar"**.
 
-1.  Acesse o [Console do Google Cloud](https://console.cloud.google.com/).
-2.  Selecione seu projeto ou crie um novo.
-3.  No menu de navegação, vá para **"IAM e Admin"** > **"Contas de Serviço"**.
-4.  Clique em **"+ CRIAR CONTA de SERVIÇO"**.
-5.  Dê um nome para a conta (ex: `sheets-updater`) e uma descrição. Clique em **"CRIAR E CONTINUAR"**.
-6.  Na seção de permissões (papel), selecione **"Projeto"** > **"Editor"**. Clique em **"CONTINUAR"**.
-7.  Pule a terceira etapa (conceder acesso aos usuários) e clique em **"CONCLUÍDO"**.
+**Pronto!** O aplicativo se conectará ao banco de dados automaticamente quando for publicado no Firebase. Nenhuma chave de API precisa ser manuseada no seu arquivo `.env` para esta funcionalidade.
 
-#### Etapa 2: Gerar uma Chave para a Conta de Serviço
+### 4. Configurar Variáveis de Ambiente (Opcional)
 
-1.  Na lista de contas de serviço, encontre a que você acabou de criar.
-2.  Clique nos três pontos (ações) na coluna da direita e selecione **"Gerenciar chaves"**.
-3.  Clique em **"ADICIONAR CHAVE"** > **"Criar nova chave"**.
-4.  Selecione o tipo **JSON** e clique em **"CRIAR"**.
-5.  Um arquivo `.json` será baixado para o seu computador. **Guarde este arquivo em um local seguro, ele contém suas credenciais.**
-
-#### Etapa 3: Compartilhar a Planilha Google
-
-1.  Abra o arquivo `.json` que você baixou. Você verá um campo chamado `"client_email"`. Copie este endereço de e-mail (algo como `...gserviceaccount.com`).
-2.  Vá para a sua [Planilha Google](https://docs.google.com/spreadsheets/d/1nkIO_LJ0X1qsPrQlcUB9TI2t9ecOTYrVmM_3ARaINmM/).
-3.  Clique em **"Compartilhar"** no canto superior direito.
-4.  Cole o `"client_email"` no campo de adicionar pessoas e grupos.
-5.  Garanta que a permissão seja de **Editor** e clique em **"Enviar"**.
-
-#### Etapa 4: Configurar o Arquivo `.env`
+Se você desejar usar a funcionalidade de geração de tagline com IA, precisará de uma chave de API do Google AI.
 
 1.  Crie um arquivo chamado `.env` na raiz do seu projeto.
-2.  Abra o arquivo `.json` novamente.
-3.  Copie e cole as informações nos campos correspondentes no arquivo `.env`:
+2.  Adicione sua chave de API:
 
 ```env
-# Google Sheets API Credentials
-# O ID da sua planilha já está aqui. Ele é extraído da URL.
-GOOGLE_SHEET_ID="1nkIO_LJ0X1qsPrQlcUB9TI2t9ecOTYrVmM_3ARaINmM"
-
-# Cole o valor do campo "client_email" do seu arquivo .json aqui.
-GOOGLE_SERVICE_ACCOUNT_EMAIL="seu-email-de-servico@....iam.gserviceaccount.com"
-
-# Cole o valor do campo "private_key" do seu arquivo .json aqui.
-# IMPORTANTE: Mantenha as aspas e substitua as quebras de linha por "\n".
-GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nSUA_CHAVE_PRIVADA_AQUI...\n-----END PRIVATE KEY-----\n"
-
 # Opcional: Google AI (Genkit)
 # Obtenha sua chave na Google AI Studio: https://aistudio.google.com/app/apikey
 GOOGLE_API_KEY="SUA_API_KEY_DO_GOOGLE_AI"
 ```
 
-> **Nota:** A `GOOGLE_PRIVATE_KEY` deve ser copiada exatamente como está no arquivo `.json`, incluindo `-----BEGIN PRIVATE KEY-----` e `-----END PRIVATE KEY-----`. As quebras de linha `\n` dentro da chave precisam ser preservadas como texto `\n` dentro das aspas no arquivo `.env`.
-
-### 4. Rodar o Servidor de Desenvolvimento
+### 5. Rodar o Servidor de Desenvolvimento
 
 ```bash
 npm run dev

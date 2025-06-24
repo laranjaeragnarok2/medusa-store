@@ -1,13 +1,13 @@
 'use server';
 
 import { z } from 'zod';
-import { appendToSheet, getSheetRowCount } from '@/services/google-sheets';
+import { addToWaitlist, getWaitlistCount } from '@/services/firebase';
 
 export async function getInitialCount() {
     try {
-        return await getSheetRowCount();
+        return await getWaitlistCount();
     } catch (error) {
-        console.error("Failed to get initial count from Sheet:", error);
+        console.error("Failed to get initial count from Firestore:", error);
         return 0;
     }
 }
@@ -24,8 +24,8 @@ export async function addToWaitlistAction(data: z.infer<typeof waitlistSchema>) 
     }
     
     try {
-        await appendToSheet(validation.data);
-        const newUserCount = await getSheetRowCount();
+        await addToWaitlist(validation.data);
+        const newUserCount = await getWaitlistCount();
         
         return {
             success: true,
