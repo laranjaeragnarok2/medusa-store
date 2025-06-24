@@ -63,7 +63,13 @@ export function WaitlistForm({ onSuccess }: WaitlistFormProps) {
             <FormItem>
               <FormLabel>Nome</FormLabel>
               <FormControl>
-                <Input placeholder="Seu nome completo" {...field} className="bg-input/80"/>
+                <div className="rounded-lg bg-input p-[1.5px] transition-all duration-300 focus-within:bg-gradient-to-r focus-within:from-primary focus-within:to-accent focus-within:animate-gradient-anim [background-size:200%_200%]">
+                  <Input 
+                    placeholder="Seu nome completo" 
+                    {...field} 
+                    className="border-none bg-input/80 focus-visible:ring-0 focus-visible:ring-offset-0"
+                  />
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -76,7 +82,14 @@ export function WaitlistForm({ onSuccess }: WaitlistFormProps) {
             <FormItem>
               <FormLabel>WhatsApp</FormLabel>
               <FormControl>
-                <Input type="tel" placeholder="(XX) XXXXX-XXXX" {...field} className="bg-input/80"/>
+                 <div className="rounded-lg bg-input p-[1.5px] transition-all duration-300 focus-within:bg-gradient-to-r focus-within:from-primary focus-within:to-accent focus-within:animate-gradient-anim [background-size:200%_200%]">
+                    <Input 
+                      type="tel" 
+                      placeholder="(XX) XXXXX-XXXX" 
+                      {...field} 
+                      className="border-none bg-input/80 focus-visible:ring-0 focus-visible:ring-offset-0"
+                    />
+                 </div>
               </FormControl>
               <FormMessage />
             </FormItem>
