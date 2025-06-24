@@ -1,7 +1,6 @@
 'use server';
 
-import { z } from 'zod';
-import { addToWaitlist, getWaitlistCount } from '@/services/firebase';
+import { getWaitlistCount } from '@/services/firebase';
 
 export async function getInitialCount() {
     try {
@@ -9,31 +8,5 @@ export async function getInitialCount() {
     } catch (error) {
         console.error("Failed to get initial count from Firestore:", error);
         return 0;
-    }
-}
-
-const waitlistSchema = z.object({
-  name: z.string().min(2, { message: "O nome deve ter pelo menos 2 caracteres."}),
-  whatsapp: z.string().min(10, { message: "Por favor, insira um número de WhatsApp válido." }),
-});
-
-export async function addToWaitlistAction(data: z.infer<typeof waitlistSchema>) {
-    const validation = waitlistSchema.safeParse(data);
-    if (!validation.success) {
-        throw new Error("Dados inválidos.");
-    }
-    
-    try {
-        await addToWaitlist(validation.data);
-        const newUserCount = await getWaitlistCount();
-        
-        return {
-            success: true,
-            newUserCount,
-            message: 'Obrigado! Você está na lista de espera.'
-        };
-    } catch (error) {
-        console.error("Failed to add to waitlist:", error);
-        throw new Error(error instanceof Error ? error.message : "Ocorreu um erro ao se cadastrar.");
     }
 }

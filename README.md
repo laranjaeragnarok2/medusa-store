@@ -44,32 +44,58 @@ cd <NOME_DA_PASTA>
 npm install
 ```
 
-### 3. Configurar o Banco de Dados (Firebase Firestore)
+### 3. Configurar Variáveis de Ambiente (Arquivo `.env`)
 
-Para que o formulário da lista de espera funcione, você precisa ativar o Firestore no seu projeto Firebase. É um processo muito mais simples que o anterior:
+Para que o formulário e o contador funcionem, você precisa conectar o projeto ao Firebase.
 
 1.  Acesse o **[Console do Firebase](https://console.firebase.google.com/)** e selecione seu projeto.
-2.  No menu lateral (seção "Build"), clique em **"Firestore Database"**.
-3.  Clique em **"Criar banco de dados"**.
-4.  Escolha iniciar no **Modo de produção** (Production mode) e clique em "Avançar".
-5.  Selecione uma localização para seus dados (ex: `southamerica-east1` para São Paulo) e clique em **"Ativar"**.
-
-**Pronto!** O aplicativo se conectará ao banco de dados automaticamente quando for publicado no Firebase. Nenhuma chave de API precisa ser manuseada no seu arquivo `.env` para esta funcionalidade.
-
-### 4. Configurar Variáveis de Ambiente (Opcional)
-
-Se você desejar usar a funcionalidade de geração de tagline com IA, precisará de uma chave de API do Google AI.
-
-1.  Crie um arquivo chamado `.env` na raiz do seu projeto.
-2.  Adicione sua chave de API:
+2.  Clique no ícone de engrenagem (Configurações do projeto) no canto superior esquerdo.
+3.  Na aba **Geral**, role para baixo até a seção **"Seus apps"**.
+4.  Selecione seu aplicativo da web (ou crie um se não houver).
+5.  Escolha a opção **"Configuração"** (Config) para ver suas chaves de API.
+6.  Crie um arquivo `.env` na raiz do projeto e copie os valores para ele, como no exemplo abaixo. Substitua `"seu-valor..."` pelos valores do seu projeto.
 
 ```env
+# Firebase Client SDK Config
+NEXT_PUBLIC_FIREBASE_API_KEY="seu-valor-da-api-key"
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="seu-valor-do-auth-domain"
+NEXT_PUBLIC_FIREBASE_PROJECT_ID="seu-valor-do-project-id"
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="seu-valor-do-storage-bucket"
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="seu-valor-do-messaging-sender-id"
+NEXT_PUBLIC_FIREBASE_APP_ID="seu-valor-do-app-id"
+
 # Opcional: Google AI (Genkit)
 # Obtenha sua chave na Google AI Studio: https://aistudio.google.com/app/apikey
 GOOGLE_API_KEY="SUA_API_KEY_DO_GOOGLE_AI"
 ```
 
-### 5. Rodar o Servidor de Desenvolvimento
+### 4. Configurar o Banco de Dados (Firebase Firestore)
+
+1.  No **[Console do Firebase](https://console.firebase.google.com/)**, no menu lateral (seção "Build"), clique em **"Firestore Database"**.
+2.  Clique em **"Criar banco de dados"**.
+3.  Inicie no **Modo de produção** e clique em "Avançar".
+4.  Selecione uma localização (ex: `southamerica-east1`) e clique em **"Ativar"**.
+
+### 5. Configurar Regras de Segurança do Firestore
+
+Para permitir que o formulário salve os dados, você precisa ajustar as regras de segurança.
+
+1.  No seu banco de dados Firestore, clique na aba **"Regras"**.
+2.  Substitua o conteúdo existente pelas regras abaixo e clique em **"Publicar"**.
+
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /waitlist/{documentId} {
+      // Permite que qualquer um leia a contagem e se inscreva.
+      allow list, create;
+    }
+  }
+}
+```
+
+### 6. Rodar o Servidor de Desenvolvimento
 
 ```bash
 npm run dev

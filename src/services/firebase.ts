@@ -1,11 +1,6 @@
 'use server';
 import * as admin from 'firebase-admin';
 
-interface WaitlistData {
-  name: string;
-  whatsapp: string;
-}
-
 // Helper function to initialize Firebase Admin SDK and get the Firestore instance.
 // This ensures that initialization only happens once.
 const getDb = () => {
@@ -22,25 +17,6 @@ const getDb = () => {
   }
   return admin.firestore();
 };
-
-/**
- * Adiciona um novo registro à coleção 'waitlist' no Firestore.
- * @param data - Os dados do usuário (nome e whatsapp).
- */
-export async function addToWaitlist(data: WaitlistData) {
-  try {
-    const db = getDb();
-    const waitlistCollection = db.collection('waitlist');
-    await waitlistCollection.add({
-      name: data.name,
-      whatsapp: data.whatsapp,
-      timestamp: admin.firestore.FieldValue.serverTimestamp(),
-    });
-  } catch (error) {
-    console.error('Error adding to Firestore:', error);
-    throw new Error('Não foi possível salvar os dados no banco de dados.');
-  }
-}
 
 /**
  * Retorna a contagem total de documentos na coleção 'waitlist'.

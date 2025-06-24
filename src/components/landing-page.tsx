@@ -52,7 +52,7 @@ export function LandingPage({ initialCount }: LandingPageProps) {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <WaitlistForm onSuccess={(newUserCount) => setUserCount(newUserCount)} />
+              <WaitlistForm onSuccess={() => setUserCount(count => count + 1)} />
             </CardContent>
             <CardFooter className="flex-col gap-4">
               <div className="flex items-center text-sm text-muted-foreground">

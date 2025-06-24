@@ -1,6 +1,6 @@
 'use client';
 
-import { useTransition } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -9,7 +9,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { addToWaitlistAction } from '@/app/actions';
+import { db } from '@/lib/firebase-client';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const waitlistFormSchema = z.object({
   name: z.string().min(2, { message: 'O nome precisa ter no mínimo 2 caracteres.' }),
@@ -19,38 +20,42 @@ const waitlistFormSchema = z.object({
 type WaitlistFormValues = z.infer<typeof waitlistFormSchema>;
 
 interface WaitlistFormProps {
-  onSuccess: (newUserCount: number) => void;
+  onSuccess: () => void;
 }
 
 export function WaitlistForm({ onSuccess }: WaitlistFormProps) {
   const { toast } = useToast();
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
 
   const form = useForm<WaitlistFormValues>({
     resolver: zodResolver(waitlistFormSchema),
     defaultValues: { name: '', whatsapp: '' },
   });
 
-  const onSubmit = (values: WaitlistFormValues) => {
-    startTransition(async () => {
-      try {
-        const result = await addToWaitlistAction(values);
-        if (result.success) {
-          onSuccess(result.newUserCount);
-          toast({
-            title: 'Sucesso!',
-            description: result.message,
-          });
-          form.reset();
-        }
-      } catch (error) {
-        toast({
-          variant: 'destructive',
-          title: 'Erro',
-          description: error instanceof Error ? error.message : 'Ocorreu um erro ao se cadastrar.',
-        });
-      }
-    });
+  const onSubmit = async (values: WaitlistFormValues) => {
+    setIsPending(true);
+    try {
+      await addDoc(collection(db, "waitlist"), {
+        ...values,
+        timestamp: serverTimestamp(),
+      });
+      
+      onSuccess();
+      toast({
+        title: 'Sucesso!',
+        description: 'Obrigado! Você está na lista de espera.',
+      });
+      form.reset();
+
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro',
+        description: error instanceof Error ? error.message : 'Ocorreu um erro ao se cadastrar.',
+      });
+    } finally {
+      setIsPending(false);
+    }
   };
 
   return (
