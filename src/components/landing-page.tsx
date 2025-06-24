@@ -1,6 +1,3 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { VideoBackground } from '@/components/video-background';
@@ -8,20 +5,6 @@ import { WaitlistForm } from '@/components/waitlist-form';
 import { Button } from './ui/button';
 
 export function LandingPage() {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return (
-      <div className="flex min-h-screen w-full flex-col items-center justify-center">
-        <div className="h-96 w-full max-w-md animate-pulse rounded-lg bg-card/80"></div>
-      </div>
-    );
-  }
-
   return (
     <>
       <VideoBackground />

@@ -95,12 +95,12 @@ export default {
           'from': { opacity: '0', transform: 'translateY(10px)' },
           'to': { opacity: '1', transform: 'translateY(0)' },
         },
-        'pulse-shadow': {
+        'pulse-scale': {
           '0%, 100%': {
-            boxShadow: '0 0 0 0 hsl(145, 63%, 49%, 0.7)',
+            transform: 'scale(1)',
           },
-          '70%': {
-            boxShadow: '0 0 0 12px hsl(145, 63%, 49%, 0)',
+          '50%': {
+            transform: 'scale(1.08)',
           },
         },
         'gradient-anim': {
@@ -116,7 +116,7 @@ export default {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in-up': 'fade-in-up 0.5s ease-out',
-        'pulse-shadow': 'pulse-shadow 2.5s infinite cubic-bezier(0.66, 0, 0, 1)',
+        'pulse-scale': 'pulse-scale 2.5s infinite ease-in-out',
         'gradient-anim': 'gradient-anim 3s ease infinite',
       },
     },
