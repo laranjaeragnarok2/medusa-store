@@ -53,7 +53,7 @@ export function LandingPage() {
                 className="mx-auto mb-4"
                 priority
               />
-              <CardTitle className="font-headline text-3xl font-bold uppercase tracking-wider text-foreground">
+              <CardTitle className="text-3xl font-bold uppercase tracking-wider text-foreground">
                 Entre na nossa lista exclusiva
               </CardTitle>
               <CardDescription className="text-base text-muted-foreground">
