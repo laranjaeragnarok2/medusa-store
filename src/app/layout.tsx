@@ -3,12 +3,18 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Alegreya } from 'next/font/google';
+import { Alegreya, Orbitron } from 'next/font/google';
 
 const alegreya = Alegreya({
   subsets: ['latin'],
   weight: ['400', '700', '900'],
   variable: '--font-alegreya',
+});
+
+const orbitron = Orbitron({
+  subsets: ['latin'],
+  weight: ['400', '700', '900'],
+  variable: '--font-orbitron',
 });
 
 
@@ -23,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`dark ${alegreya.variable}`}>
+    <html lang="pt-BR" className={`dark ${alegreya.variable} ${orbitron.variable}`}>
       <body className="font-sans antialiased">
         {children}
         <FloatingWhatsAppButton />

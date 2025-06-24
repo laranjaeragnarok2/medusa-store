@@ -37,7 +37,7 @@ export function LandingPage() {
                 className="mx-auto mb-4"
                 priority
               />
-              <CardTitle className="text-3xl font-bold text-foreground">
+              <CardTitle className="font-cyber text-3xl font-bold text-primary">
                 Seja bem-vindo à nova loja virtual da Medusa Store!
               </CardTitle>
               <CardDescription className="text-base text-muted-foreground">

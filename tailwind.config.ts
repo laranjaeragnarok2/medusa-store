@@ -10,6 +10,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['var(--font-alegreya)', 'serif'],
+        cyber: ['var(--font-orbitron)', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
