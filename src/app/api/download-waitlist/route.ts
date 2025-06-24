@@ -1,75 +1,10 @@
 import { NextResponse } from 'next/server';
-import { getAdminDb } from '@/lib/firebase-admin';
 
-// Força a rota a ser 100% dinâmica, impedindo que a Vercel tente executá-la durante o build.
-export const dynamic = 'force-dynamic';
-
-/**
- * Converte um array de objetos em uma string no formato CSV.
- * @param {Record<string, any>[]} data - O array de objetos a ser convertido.
- * @returns {string} - A string formatada como CSV.
- */
-function toCsv(data: Record<string, any>[]) {
-  if (!data || data.length === 0) {
-    return "";
-  }
-  const headers = Object.keys(data[0]);
-  const csvRows = [];
-  csvRows.push(headers.join(','));
-
-  for (const row of data) {
-    const values = headers.map(header => {
-      // Escapa aspas duplas dentro dos campos e envolve o campo com aspas.
-      const escaped = ('' + row[header]).replace(/"/g, '""');
-      return `"${escaped}"`;
-    });
-    csvRows.push(values.join(','));
-  }
-  return csvRows.join('\n');
-}
-
-/**
- * Rota da API para buscar todos os inscritos no Firestore e servi-los como um arquivo CSV para download.
- */
+// Rota desativada após a migração para o Formspree.
+// Retorna um status 410 (Gone) para indicar que este endpoint não existe mais.
 export async function GET() {
-  try {
-    // A inicialização do Admin SDK agora é "lazy" (preguiçosa) e acontece aqui, em tempo de execução.
-    const adminDb = getAdminDb();
-    const waitlistSnapshot = await adminDb.collection('waitlist').orderBy('timestamp', 'asc').get();
-    
-    if (waitlistSnapshot.empty) {
-      return new NextResponse('Nenhum usuário na lista de espera.', { 
-        status: 200, 
-        headers: { 'Content-Type': 'text/plain' } 
-      });
-    }
-
-    const waitlistData = waitlistSnapshot.docs.map(doc => {
-      const data = doc.data();
-      return {
-        id: doc.id,
-        name: data.name || '',
-        whatsapp: data.whatsapp || '',
-        timestamp: data.timestamp?.toDate().toISOString() || '',
-      };
-    });
-
-    const csvData = toCsv(waitlistData);
-    
-    const headers = new Headers();
-    headers.set('Content-Type', 'text/csv; charset=utf-8');
-    headers.set('Content-Disposition', 'attachment; filename="waitlist.csv"');
-
-    // Adiciona um Byte Order Mark (BOM) para garantir a compatibilidade com o Excel
-    const dataWithBom = '\uFEFF' + csvData;
-
-    return new NextResponse(dataWithBom, { status: 200, headers });
-
-  } catch (error) {
-    console.error('Error fetching waitlist for download:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Ocorreu um erro desconhecido.';
-    // Mensagem de erro explícita para o caso de falha na Vercel.
-    const detailedError = `ERRO 500: Falha ao buscar a lista. MOTIVO: ${errorMessage}. VERIFIQUE: 1) Se as 3 variáveis de ambiente do servidor (FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY) estão corretas no painel da Vercel. 2) Se as regras do Firestore permitem a leitura pelo e-mail do servidor.`;
-    return new NextResponse(detailedError, { status: 500 });
-  }
+  return new NextResponse('This API route is no longer in use.', {
+    status: 410,
+    headers: { 'Content-Type': 'text/plain' },
+  });
 }
