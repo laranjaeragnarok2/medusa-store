@@ -38,22 +38,13 @@ cd <NOME_DA_PASTA>
 npm install
 ```
 
-### 3. Configurar o Formspree
-
-Para que o formulário funcione, você precisa de um "Form ID" do Formspree.
-
-1.  **Crie uma Conta:** Acesse [formspree.io](https://formspree.io/) e crie uma conta gratuita.
-2.  **Crie um Novo Formulário:** No painel do Formspree, clique em "+ New form". Dê um nome ao formulário (ex: "Lista de Espera Medusa") e clique em "Create Form".
-3.  **Copie o Form ID:** Você será levado para a página de integração do seu novo formulário. A URL no seu navegador será algo como `https://formspree.io/f/{FORM_ID}`. O Form ID é essa sequência de letras e números aleatórios.
-4.  **Atualize o Código:** Abra o arquivo `src/components/waitlist-form.tsx` no seu editor de código. Encontre a linha que diz `const [state, handleSubmit] = useForm('YOUR_FORM_ID_HERE');` e substitua `'YOUR_FORM_ID_HERE'` pelo ID que você copiou.
-
-### 4. Rodar o Servidor de Desenvolvimento
+### 3. Rodar o Servidor de Desenvolvimento
 
 ```bash
 npm run dev
 ```
 
-Abra [http://localhost:9002](http://localhost:9002) no seu navegador. Agora, ao enviar um teste, você deverá receber um e-mail e ver o envio no seu painel do Formspree.
+Abra [http://localhost:9002](http://localhost:9002) no seu navegador. O projeto já está pré-configurado para enviar os dados do formulário para uma conta Formspree.
 
 ## Deployment (Publicação na Vercel)
 

@@ -24,8 +24,7 @@ const waitlistFormSchema = z.object({
 type WaitlistFormValues = z.infer<typeof waitlistFormSchema>;
 
 export function WaitlistForm() {
-  // O ID do formulário você pega no painel do Formspree.io
-  const [state, handleSubmit] = useFormspree('YOUR_FORM_ID_HERE');
+  const [state, handleSubmit] = useFormspree('myzjnvzv');
 
   const form = useForm<WaitlistFormValues>({
     resolver: zodResolver(waitlistFormSchema),
