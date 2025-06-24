@@ -9,15 +9,24 @@ interface WaitlistData {
 
 function getGoogleSheetsApi() {
   const serviceAccountEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-  const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+  const privateKeyRaw = process.env.GOOGLE_PRIVATE_KEY;
   const spreadsheetId = process.env.GOOGLE_SHEET_ID;
 
-  if (!serviceAccountEmail || !privateKey || !spreadsheetId) {
+  if (!serviceAccountEmail || !privateKeyRaw || !spreadsheetId) {
     if (process.env.GOOGLE_SHEET_ID || process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || process.env.GOOGLE_PRIVATE_KEY) {
          console.warn("Google Sheets credentials are not fully configured. API calls will be skipped.");
     }
     return null;
   }
+
+  // A common mistake is to not format the private key correctly in the .env file.
+  // This check helps prevent runtime errors by ensuring the key looks like a valid PEM key.
+  if (!privateKeyRaw.startsWith('-----BEGIN PRIVATE KEY-----')) {
+    console.error("Error: GOOGLE_PRIVATE_KEY is not a valid PEM key. It must start with '-----BEGIN PRIVATE KEY-----' and be formatted as a single line in your .env file, with newline characters from the original JSON file preserved as '\\n'.");
+    return null;
+  }
+
+  const privateKey = privateKeyRaw.replace(/\\n/g, '\n');
 
   const auth = new google.auth.GoogleAuth({
     credentials: {
