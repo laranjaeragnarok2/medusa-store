@@ -30,14 +30,22 @@ export function WaitlistForm() {
 
   const onSubmit = async (values: WaitlistFormValues) => {
     setIsPending(true);
+    
+    // Cria a operação de escrita no Firestore.
+    const writePromise = addDoc(collection(db, "waitlist"), {
+      ...values,
+      timestamp: new Date(),
+    });
+
+    // Cria uma promise de timeout que rejeitará após 8 segundos.
+    // Isso evita o "spinner infinito" se o Firebase não responder devido a problemas de rede ou configuração.
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error("Timeout")), 8000)
+    );
+
     try {
-      // Usando new Date() em vez de serverTimestamp() para evitar que a promise "trave"
-      // em caso de problemas de permissão ou configuração no Firebase.
-      // Isso garante que o erro será capturado e o spinner irá parar.
-      await addDoc(collection(db, "waitlist"), {
-        ...values,
-        timestamp: new Date(),
-      });
+      // Executa a operação de escrita e o timeout em paralelo. O que acontecer primeiro, ganha.
+      await Promise.race([writePromise, timeoutPromise]);
       
       toast({
         title: 'Sucesso!',
@@ -45,12 +53,21 @@ export function WaitlistForm() {
       });
       form.reset();
 
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erro ao se cadastrar:", error);
+
+      // Prepara uma mensagem de erro mais específica para o usuário.
+      let description = 'Não foi possível enviar seus dados. Tente novamente mais tarde.';
+      if (error.message === 'Timeout') {
+        description = 'A operação demorou muito. Verifique sua conexão e a configuração das chaves do Firebase na Vercel.';
+      } else if (error.code === 'permission-denied') {
+        description = 'Permissão negada. Verifique as regras de segurança do seu Firestore.';
+      }
+      
       toast({
         variant: 'destructive',
         title: 'Ops! Algo deu errado.',
-        description: 'Não foi possível enviar seus dados. Verifique se as variáveis de ambiente do cliente (NEXT_PUBLIC_*) estão configuradas corretamente na Vercel.',
+        description: description,
       });
     } finally {
       setIsPending(false);
