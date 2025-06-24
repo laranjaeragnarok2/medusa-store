@@ -9,12 +9,10 @@ import { WaitlistForm } from '@/components/waitlist-form';
 import { Button } from './ui/button';
 import { db } from '@/lib/firebase-client';
 import { collection, onSnapshot } from 'firebase/firestore';
-import { TaglineGenerator } from './tagline-generator';
 
 export function LandingPage() {
   const [userCount, setUserCount] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
-  const [description, setDescription] = useState('Receba ofertas especiais como até 50% de desconto');
 
   useEffect(() => {
     setIsMounted(true);
@@ -59,14 +57,13 @@ export function LandingPage() {
                 Entre na nossa lista exclusiva
               </CardTitle>
               <CardDescription className="text-base text-muted-foreground">
-                {description}
+                Receba ofertas especiais como até 50% de desconto
               </CardDescription>
             </CardHeader>
             <CardContent>
               <WaitlistForm />
             </CardContent>
             <CardFooter className="flex-col gap-4">
-               <TaglineGenerator onGenerated={setDescription} />
               <div className="flex items-center text-sm text-muted-foreground">
                 <Users className="mr-2 h-4 w-4" />
                 <span>Junte-se a <span className="font-bold text-accent-foreground">{userCount}</span> pessoas na espera!</span>
