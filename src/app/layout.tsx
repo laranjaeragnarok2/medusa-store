@@ -3,6 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import { FloatingWhatsAppButton } from '@/components/floating-whatsapp-button';
 import { Alegreya, Orbitron } from 'next/font/google';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const alegreya = Alegreya({
   subsets: ['latin'],
@@ -33,6 +34,7 @@ export default function RootLayout({
         {children}
         <FloatingWhatsAppButton />
         <Toaster />
+        <SpeedInsights />
       </body>
     </html>
   );
