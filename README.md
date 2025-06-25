@@ -10,7 +10,7 @@
 </p>
 
 <div align="center">
-  <img src="https://iili.io/Jt1U3Vj.png" alt="Medusa Store Preview" width="800"/>
+  <img src="https://i.postimg.cc/J76DhJGZ/screencapture-medusa-store-shop-2025-06-25-15-43-16.png" alt="Medusa Store Preview" width="800"/>
 </div>
 
 ---
