@@ -5,7 +5,7 @@
 
 <p align="center">
   <a href="https://medusa-store.shop" target="_blank">
-    <img src="https://img.shields.io/badge/Acessar%20Site-Live%20Preview-brightgreen?style=for-the-badge&logo=vercel" alt="Live Preview">
+    <img src="https://img.shields.io/badge/Acessar%20Site-Live%20Preview-brightgreen?style=for-the-badge&logo=vercel](https://i.postimg.cc/44tb7WRV/logo-removebg-preview.png" alt="Live Preview">
   </a>
 </p>
 
